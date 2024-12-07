@@ -1,14 +1,29 @@
 library(Seurat)
 library(ggplot2)
+library(dplyr)
+
+c25 <- c(
+  "dodgerblue2", "#E31A1C", # red
+  "green4",
+  "#6A3D9A", # purple
+  "#FF7F00", # orange
+  "black", "gold1",
+  "skyblue2", "#FB9A99", # lt pink
+  "palegreen2",
+  "#CAB2D6", # lt purple
+  "#FDBF6F", # lt orange
+  "gray70", "khaki2",
+  "maroon", "orchid1", "deeppink1", "blue1", "steelblue4",
+  "darkturquoise", "green1", "yellow4", "yellow3",
+  "darkorange4", "brown"
+)
 
 setwd('')
-scRNA.merge.integrated <- readRDS('sn_data/Nucseq_cere_aging_full.rds')
+scRNA.merge.integrated <- readRDS('snRNAseq_LogNorm_integrated_mergeCluster.rds')
 
-load('mouse_structure/cerebellum/sn_data/Nucseq_cer_AgingDEGs_results_full.bin')
+load('Nucseq_cer_AgingDEGs_results_full_rev.bin')
+
 largest_list <- results_list_scRNA.merge.integrated
-
-# Effect size dotplot
-
 average_logFC <- data.frame(CellType = character(),
                             Comparison = character(),
                             AvgLogFC = numeric())
@@ -49,7 +64,7 @@ for (i in seq_along(largest_list)) {
 average_logFC$AvgLogFC <- ifelse(is.nan(average_logFC$AvgLogFC), 0, average_logFC$AvgLogFC)
 
 # Convert 'Comparison' to a factor with a specific order if needed
-average_logFC$Comparison <- factor(average_logFC$Comparison, levels = c("12m_vs_3m", "18m_vs_3m", "24m_vs_3m"))
+average_logFC$Comparison <- factor(average_logFC$Comparison, levels = c("12_vs_3", "18_vs_3", "24_vs_3"))
 
 ggplot(average_logFC, aes(x = Comparison, y = AvgLogFC, color = CellType)) +
   geom_jitter(width = 0.2, size = 3, alpha = 0.8) +  # Add jitter to points
@@ -59,4 +74,4 @@ ggplot(average_logFC, aes(x = Comparison, y = AvgLogFC, color = CellType)) +
        y = "Average Log Fold Change",
        color = "Cell Type") +
   scale_color_manual(values = c25) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Adjust x-axis text for readability
