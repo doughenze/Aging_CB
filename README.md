@@ -7,3 +7,5 @@ Replicating all heatmaps in figure 2, and any additional bulk seq figures, can b
 All MERFISH analysis is contained within the MERFISH directory. This is following the downloading of the main object from [here](https://figshare.com/articles/dataset/Aging_MERFISH_Brains/27919227).
 
 The order of running the notebooks is contained in the leading numbers within each of the directories.
+
+All python scripts can be run by utilizing the Vizgen_run.sif singularity container found [here](https://zenodo.org/records/14611122).
