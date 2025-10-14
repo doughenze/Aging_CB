@@ -29,7 +29,7 @@ current.cluster.ids <- c(0, 1, 3,
 
 new.cluster.ids <- c('Granule', 'Oligo', 'Astrocyte',
                      'Fibroblast', 'MLI', 'Bergmann', 'Choroid',
-                     'Endo', 'Endo. Mural', 'Astrocyte', 'Microglia',
+                     'Endo', 'Endo. Mural', 'Golgi', 'Microglia',
                      'OPC', 'PLI','Purkinje', 'UBC')
 
 scRNA.merge.integrated@meta.data$celltype <- plyr::mapvalues(x = scRNA.merge.integrated@meta.data$seurat_clusters, from = current.cluster.ids, to = new.cluster.ids)
